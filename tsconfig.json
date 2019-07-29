@@ -10,8 +10,8 @@
     "experimentalDecorators": true
   },
   "files": [
-    "core.ts",
-    "core.spec.ts"
+    "src/core.ts",
+    "src/core.spec.ts"
   ],
   "compileOnSave": true,
   "buildOnSave": true,

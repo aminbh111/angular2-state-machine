@@ -1,18 +1,26 @@
 "use strict";
-var core_1 = require('./core');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("./core");
+var stateEvent_1 = require("./stateEvent");
 var fsm = new core_1.StateMachine({
-    initial: 'green',
     events: [
-        new core_1.StateEvent({
-            name: 'toGreen', from: ['yellow'], to: 'green'
+        new stateEvent_1.StateEvent({
+            from: ['yellow'],
+            name: 'toGreen',
+            to: 'green',
         }),
-        new core_1.StateEvent({
-            name: 'toRed', from: ['yellow'], to: 'red'
+        new stateEvent_1.StateEvent({
+            from: ['yellow'],
+            name: 'toRed',
+            to: 'red',
         }),
-        new core_1.StateEvent({
-            name: 'toYellow', from: ['red', 'green'], to: 'yellow'
-        })
-    ]
+        new stateEvent_1.StateEvent({
+            from: ['red', 'green'],
+            name: 'toYellow',
+            to: 'yellow',
+        }),
+    ],
+    initial: 'green',
 });
 describe('StateMachine', function () {
     describe('that we can use it ', function () {
@@ -21,22 +29,30 @@ describe('StateMachine', function () {
         });
         it(' Error exception', function () {
             try {
-                new core_1.StateMachine({
-                    initial: 'green',
+                return new core_1.StateMachine({
                     events: [
-                        new core_1.StateEvent({
-                            name: 'toGreen', from: ['yellow'], to: 'green'
+                        new stateEvent_1.StateEvent({
+                            from: ['yellow'],
+                            name: 'toGreen',
+                            to: 'green',
                         }),
-                        new core_1.StateEvent({
-                            name: 'toRed', from: ['yellow'], to: 'red'
+                        new stateEvent_1.StateEvent({
+                            from: ['yellow'],
+                            name: 'toRed',
+                            to: 'red',
                         }),
-                        new core_1.StateEvent({
-                            name: 'toYellow', from: ['red', 'green'], to: 'yellow'
+                        new stateEvent_1.StateEvent({
+                            from: ['red', 'green'],
+                            name: 'toYellow',
+                            to: 'yellow',
                         }),
-                        new core_1.StateEvent({
-                            name: 'toGreen', from: ['yellow'], to: 'green'
-                        })
-                    ]
+                        new stateEvent_1.StateEvent({
+                            from: ['yellow'],
+                            name: 'toGreen',
+                            to: 'green',
+                        }),
+                    ],
+                    initial: 'green',
                 });
             }
             catch (e) {
@@ -82,7 +98,7 @@ describe('StateMachine', function () {
         it('getEvents', function () {
             expect(fsm.getEvents() instanceof Array).toBe(true);
             expect(fsm.getEvents().length).toBe(3);
-            expect(fsm.getEvents()[0] instanceof core_1.StateEvent).toBe(true);
+            expect(fsm.getEvents()[0] instanceof stateEvent_1.StateEvent).toBe(true);
             expect(fsm.getEvents()[0].name).toBe('toGreen');
         });
         it('goToPreviousState', function () {

@@ -1,8 +1,8 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var StateMachine = (function () {
     function StateMachine(options) {
         var _this = this;
-        this.events = [];
         this.transitions = {};
         var seen = [];
         this.initial = options.initial;
@@ -13,28 +13,6 @@ var StateMachine = (function () {
             _this.checkUnique(seen, event.name);
         });
     }
-    StateMachine.prototype.defineTransitions = function (event) {
-        var _this = this;
-        event.from.forEach(function (fromState) {
-            if (!_this.transitions[fromState]) {
-                _this.transitions[fromState] = [event.name];
-            }
-            else {
-                if (_this.transitions[fromState].indexOf(event.name) === -1) {
-                    _this.transitions[fromState].push(event.name);
-                }
-            }
-        });
-    };
-    StateMachine.prototype.checkUnique = function (seen, eventName) {
-        if (seen.indexOf(eventName) === -1) {
-            seen.push(eventName);
-        }
-        else {
-            seen = null;
-            throw new Error('You have to use unique names for all events');
-        }
-    };
     StateMachine.prototype.getCurrent = function () {
         return this.current;
     };
@@ -75,15 +53,28 @@ var StateMachine = (function () {
         })[0];
         this.fireAction(event.name);
     };
+    StateMachine.prototype.defineTransitions = function (event) {
+        var _this = this;
+        event.from.forEach(function (fromState) {
+            if (!_this.transitions[fromState]) {
+                _this.transitions[fromState] = [event.name];
+            }
+            else {
+                if (_this.transitions[fromState].indexOf(event.name) === -1) {
+                    _this.transitions[fromState].push(event.name);
+                }
+            }
+        });
+    };
+    StateMachine.prototype.checkUnique = function (seen, eventName) {
+        if (seen.indexOf(eventName) === -1) {
+            seen.push(eventName);
+        }
+        else {
+            seen = null;
+            throw new Error('You have to use unique names for all events');
+        }
+    };
     return StateMachine;
 }());
 exports.StateMachine = StateMachine;
-var StateEvent = (function () {
-    function StateEvent(options) {
-        this.name = options.name;
-        this.from = options.from;
-        this.to = options.to;
-    }
-    return StateEvent;
-}());
-exports.StateEvent = StateEvent;
